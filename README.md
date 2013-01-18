@@ -1,4 +1,6 @@
-sqt
+Sarbotte Quality Tool
 ===
 
-Sarbotte Quality Tool
+
+Open Sarbotte License
+====

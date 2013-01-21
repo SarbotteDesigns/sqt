@@ -112,7 +112,7 @@ OptionParser.new do |opts|
     options[:extension] = e || ""
   end
 
-  opts.on("-c", "--curl [CURL]", "Curl.") do |u|
+  opts.on("-c", "--curl [URL]", "Curl.") do |u|
     options[:url] = u || ""
   end
 

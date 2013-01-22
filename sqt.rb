@@ -48,8 +48,7 @@ def printResults(filesProperties, options)
   puts "Fichiers : "
   filesProperties.each do |fP|
     sqi = fP[:sqi]
-    print "  "
-    print "#{fP[:uri].gsub(options[:path] && options[:path] != "." ? options[:path] : "", "")} : "
+    print "  #{fP[:uri].gsub(options[:path] && options[:path] != "." ? options[:path] : "", "")} : "
     print "#{'%.2f' % fP[:sqi]}".colorize( sqi < 50 ? :red : sqi < 80 ? :yellow : :green )
     puts " (#{fP[:jsAndCssLength]}/#{fP[:totalLength]})"
   end
@@ -63,17 +62,12 @@ def writeResults(filesProperties, options)
   end
   if filesProperties.size > 1 then
     average = filesProperties.reduce(0) { |total, fP| total + fP[:sqi] }.to_f / filesProperties.size
-    result +=  "Moyenne : "
-    result +=  '%.2f' % average
-    result +=  "\n\n"
+    result +=  "Moyenne : #{'%.2f' % average}\n\n"
   end
   result += "Fichiers : \n"
   filesProperties.each do |fP|
     sqi = fP[:sqi]
-    result += "  "
-    result += "#{fP[:uri].gsub(options[:path] && options[:path] != "." ? options[:path] : "", "")} : "
-    result += '%.2f' % fP[:sqi]
-    result += " (#{fP[:jsAndCssLength]}/#{fP[:totalLength]})\n"
+    result += "  #{fP[:uri].gsub(options[:path] && options[:path] != "." ? options[:path] : "", "")} : #{'%.2f' % fP[:sqi]} (#{fP[:jsAndCssLength]}/#{fP[:totalLength]})\n"
   end
   File.open(options[:fileName], 'w') {|f| f.write(result) }
 end

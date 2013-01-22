@@ -23,13 +23,8 @@ end
 # Récupère le nombre de caractères dans les balises script et style d'un fichier
 def getJsAndCssLength(file)
   xmlFile = Nokogiri::HTML(file)
-  jsLength = xmlFile.search('//script').reduce(0) do |total, script|
-    total + script.text.length
-  end
-  jsAndCssLength = xmlFile.search('//style').reduce(jsLength) do |total, style|
-    total + style.text.length
-  end
-  jsAndCssLength
+  jsLength = xmlFile.search('//script').reduce(0) { |total, script| total + script.text.length }
+  jsAndCssLength = xmlFile.search('//style').reduce(jsLength) { |total, style| total + style.text.length }
 end
 
 # Définit le Sarbotte Quality Index d'un fichier
@@ -40,7 +35,6 @@ end
 # Affiche en console les résultats
 def printResults(filesProperties, options)
   system ("cls")
-  filesProperties.sort_by! { |a| a[:sqi]}
   puts "\nSarbotte Quality Tool\n".colorize( :cyan )
   if options[:path] then
     puts "Chemin : " + options[:path] + "\n\n"
@@ -63,7 +57,6 @@ end
 
 # Écrit dans un fichier les résultats
 def writeResults(filesProperties, options)
-  filesProperties.sort_by! { |a| a[:sqi]}
   result = "Sarbotte Quality Tool\n\n"
   if options[:path] then
     result += "Chemin : " + options[:path] + "\n\n"
@@ -154,6 +147,7 @@ end
 
 # Si on a pu calculer le sqi d'un ou plusieurs fichiers
 unless filesProperties.empty?
+  filesProperties.sort_by! { |a| a[:sqi]}
   printResults(filesProperties, options)
   if options[:fileName]
     writeResults(filesProperties, options)

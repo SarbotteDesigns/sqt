@@ -116,7 +116,7 @@ OptionParser.new do |opts|
     options[:url] = u || ""
   end
 
-   opts.on("-w", "--write [FILENAME]", "Écris les résultats dans un fichier.") do |w|
+   opts.on("-w", "--write [FILENAME]", "Écrit les résultats dans un fichier.") do |w|
     options[:fileName] = w || "Sarbotte Quality.txt"
   end
 

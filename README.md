@@ -14,7 +14,7 @@ Il est également possible de lancer le sqt sur une page html distante.
 
 Utilisation :
 ```bash
-$ ruby sqt.rb [options]
+$ sqt [options]
 ```
 
 Options disponibles :
@@ -26,36 +26,23 @@ Options disponibles :
     -w, --write [FILENAME]           Écris les résultats dans un fichier.
     -h, --help                       Affiche l'aide.
 
-Exemple : 
+Exemple :
 ```bash
-$ ruby sqt.rb -p . -e html
+$ sqt -p . -e html
 ```
 
 ## Installation
 
-Cloner sqt :
-
-```bash
-$ git clone https://github.com/SarbotteDesigns/sqt.git
-$ cd sqt
-```
-
 Installer ruby.
 
-Installer la gem bundle :
+Installer sqt :
 
 ```bash
-$ gem install bundle
-```
-
-Installer les dépendances de sqt :
-
-```bash
-$ bundle install
+$ gem install sqt
 ```
 
 ## License
 
 Open Sarbotte License
 
-   
+

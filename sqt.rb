@@ -23,8 +23,8 @@ end
 # Récupère le nombre de caractères dans les balises script et style d'un fichier
 def getJsAndCssLength(file)
   xmlFile = Nokogiri::HTML(file)
-  jsLength = xmlFile.search('//script').reduce(0) { |total, script| total + script.text.length }
-  jsAndCssLength = xmlFile.search('//style').reduce(jsLength) { |total, style| total + style.text.length }
+  jsLength = xmlFile.search('//script').reduce(0) { |total, script| total + script.text.bytesize }
+  jsAndCssLength = xmlFile.search('//style').reduce(jsLength) { |total, style| total + style.text.bytesize }
 end
 
 # Définit le Sarbotte Quality Index d'un fichier
@@ -76,7 +76,7 @@ end
 def buildResult(uri, file)
   fileProperties = {}
   fileProperties[:uri] = uri
-  fileProperties[:totalLength] = file.length
+  fileProperties[:totalLength] = file.bytesize
   fileProperties[:jsAndCssLength] = getJsAndCssLength file
   fileProperties[:sqi] = sarbotteQuality(fileProperties[:jsAndCssLength], fileProperties[:totalLength])
   fileProperties

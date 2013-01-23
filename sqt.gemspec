@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
   s.add_dependency('colorize', '~> 0.5.8')
   s.add_dependency('win32console', '~> 1.3.2')
 
-  s.executables << 'sqt'
+  s.executables << 'sqt.rb'
 end

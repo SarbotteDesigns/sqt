@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # Sarbotte Quality Tool v1.0
-# Coryright Sarbotte Designs
+# Copyright Sarbotte Designs
 # Open Sarbotte License
 
 module SQT

@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+# Sarbotte Quality Tool v1.0
+# Copyright Sarbotte Designs
+# Open Sarbotte License
+
 require 'sqt'
 
 options = {}

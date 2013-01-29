@@ -4,7 +4,6 @@
 require 'sqt'
 
 options = {}
-paths = []
 filesProperties = []
 
 # Définition des options du script
@@ -40,35 +39,22 @@ end.parse!
 
 # Si le chemin d'un répertoire est donné en option
 if options[:path]
-  paths = findFiles(options[:path], options[:extension])
+  filesProperties = SQT.sarbottePath(options[:path], options[:extension])
 end
 
 # Si le chemin vers un fichier est donné en option
 if options[:file]
-  paths << options[:file]
-end
-
-# Si on a pu trouver des chemins de fichiers
-unless paths.empty?
-  paths.each do |path|
-    file = File.read path
-    filesProperties << buildResult(path, file)
-  end
+  filesProperties = SQT.sarbotteFile(options[:file])
 end
 
 # Si une url est donnée en option
 if options[:url]
-  require 'curb'
-  http = Curl.get(options[:url])
-  file = http.body_str
-  filesProperties << buildResult(options[:url], file)
+  filesProperties = SQT.sarbotteCurl(options[:url])
 end
 
 # Si on a pu calculer le sqi d'un ou plusieurs fichiers
 unless filesProperties.empty?
   filesProperties.sort_by! { |a| a[:sqi]}
-  printResults(filesProperties, options)
-  if options[:fileName]
-    writeResults(filesProperties, options)
-  end
+  SQT.printResults(filesProperties, options)
+  SQT.writeResults(filesProperties, options) if options[:fileName]
 end

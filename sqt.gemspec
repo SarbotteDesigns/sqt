@@ -1,7 +1,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'sqt'
-  s.version     = '1.0.1'
+  s.version     = '1.0.2'
   s.date        = '2012-01-22'
   s.summary     = "Sarbotte Quality Tool"
   s.description = "Client side quality validator"

@@ -1,4 +1,3 @@
-
 Gem::Specification.new do |s|
   s.name        = 'sqt'
   s.version     = '1.0.2'

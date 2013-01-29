@@ -50,9 +50,9 @@ module SQT
 
   def self.sarbotteCurl(url)
     require 'curb'
-    http = Curl.get(options[:url])
+    http = Curl.get(url)
     file = http.body_str
-    Sqt.buildResult(options[:url], file)
+    Sqt.buildResult(url, file)
   end
 
    # Affiche en console les résultats

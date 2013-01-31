@@ -44,7 +44,7 @@ module SQT
   end
 
   def self.sarbotteFile(file)
-    Sqt.buildResult(p, File.read(p))
+    Sqt.buildResult(file, File.read(file))
   end
 
   def self.sarbotteCurl(url)

@@ -46,10 +46,10 @@ if options[:path]
   filesProperties = SQT.sarbottePath(options[:path], options[:extension])
 # Si le chemin vers un fichier est donné en option
 elsif options[:file]
-  filesProperties = SQT.sarbotteFile(options[:file])
+  filesProperties.push SQT.sarbotteFile(options[:file])
 # Si une url est donnée en option
 elsif options[:url]
-  filesProperties = SQT.sarbotteCurl(options[:url])
+  filesProperties.push SQT.sarbotteCurl(options[:url])
 end
 
 # Si on a pu calculer le sqi d'un ou plusieurs fichiers

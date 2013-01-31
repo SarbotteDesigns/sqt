@@ -55,6 +55,6 @@ end
 # Si on a pu calculer le sqi d'un ou plusieurs fichiers
 unless filesProperties.empty?
   filesProperties.sort_by! { |a| a[:sqi] }
-  SQT.printResults(filesProperties, options)
-  SQT.writeResults(filesProperties, options) if options[:fileName]
+  SQT.sarbottePrint(filesProperties, options)
+  SQT.sarbotteWrite(filesProperties, options) if options[:fileName]
 end

@@ -55,7 +55,7 @@ module SQT
   end
 
    # Affiche en console les résultats
-  def self.printResults(filesProperties, options)
+  def self.sarbottePrint(filesProperties, options)
     system("cls")
     puts "\nSarbotte Quality Tool\n".colorize( :cyan )
     if options[:path] then
@@ -77,7 +77,7 @@ module SQT
   end
 
   # Écrit dans un fichier les résultats
-  def self.writeResults(filesProperties, options)
+  def self.sarbotteWrite(filesProperties, options)
     result = "Sarbotte Quality Tool\n\n"
     if options[:path] then
       result += "Chemin : " + options[:path] + "\n\n"

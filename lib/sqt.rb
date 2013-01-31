@@ -1,4 +1,4 @@
-# encoding: utf-8
+﻿# encoding: utf-8
 
 # Sarbotte Quality Tool v1.0
 # Copyright Sarbotte Designs
@@ -28,8 +28,7 @@ module SQT
     def self.getJsAndCssLength(file)
       xmlFile = Nokogiri::HTML(file)
       jsLength = xmlFile.search('//script').reduce(0) { |total, script| total + script.text.bytesize }
-      jsAndCssLength = xmlFile.search('//style').reduce(jsLength) { |total, style| total + style.text.bytesize }
-      jsAndCssLength
+      xmlFile.search('//style').reduce(jsLength) { |total, style| total + style.text.bytesize }
     end
 
     # Définit le Sarbotte Quality Index d'un fichier

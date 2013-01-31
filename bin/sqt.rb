@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+﻿#!/usr/bin/env ruby
 # encoding: utf-8
 
 # Sarbotte Quality Tool v1.0
@@ -43,22 +43,18 @@ end.parse!
 
 # Si le chemin d'un répertoire est donné en option
 if options[:path]
-  filesProperties << SQT.sarbottePath(options[:path], options[:extension])
-end
-
+  filesProperties = SQT.sarbottePath(options[:path], options[:extension])
 # Si le chemin vers un fichier est donné en option
-if options[:file]
-  filesProperties << SQT.sarbotteFile(options[:file])
-end
-
+elsif options[:file]
+  filesProperties = SQT.sarbotteFile(options[:file])
 # Si une url est donnée en option
-if options[:url]
-  filesProperties << SQT.sarbotteCurl(options[:url])
+elsif options[:url]
+  filesProperties = SQT.sarbotteCurl(options[:url])
 end
 
 # Si on a pu calculer le sqi d'un ou plusieurs fichiers
 unless filesProperties.empty?
-  filesProperties.sort_by! { |a| a[:sqi]}
+  filesProperties.sort_by! { |a| a[:sqi] }
   SQT.printResults(filesProperties, options)
   SQT.writeResults(filesProperties, options) if options[:fileName]
 end

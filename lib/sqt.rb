@@ -10,7 +10,6 @@ module SQT
   require 'nokogiri'
 
   require 'colorize'
-  require 'win32console'
 
   class Sqt
 

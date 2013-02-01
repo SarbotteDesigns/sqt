@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'sqt'
-  s.version     = '1.0.2'
+  s.version     = '1.0.3'
   s.date        = '2012-01-22'
   s.summary     = "Sarbotte Quality Tool"
   s.description = "Client side quality validator"
@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('nokogiri', '~> 1.5.6')
   s.add_dependency('colorize', '~> 0.5.8')
-  s.add_dependency('win32console', '~> 1.3.2')
-
-  s.executables << 'sqt.rb'
+  s.add_dependency('curb')
+  s.add_development_dependency "rake"
+  s.executables << 'sqt'
 end

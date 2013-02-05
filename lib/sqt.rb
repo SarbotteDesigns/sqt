@@ -46,6 +46,10 @@ module SQT
     Sqt.buildResult(file, File.read(file))
   end
 
+  def self.sarbotteString(string)
+    Sqt.buildResult("", string)
+  end
+
   def self.sarbotteCurl(url)
     require 'curb'
     http = Curl.get(url)

@@ -44,5 +44,3 @@ $ gem install sqt
 ## License
 
 Open Sarbotte License
-
-

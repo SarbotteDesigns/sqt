@@ -1,4 +1,4 @@
-# Sarbotte Quality Tool
+# Sarbotte Quality Tool [![Build Status](https://travis-ci.org/SarbotteDesigns/sqt.png)](https://travis-ci.org/SarbotteDesigns/sqt)
 
 Le Sarbotte Quality Tool est l'outil de référence pour s'assurer de la qualité des développements côté client. Il permet de mesurer la quantité de code javascript ou css présent dans une page et à externaliser (quand possible).
 

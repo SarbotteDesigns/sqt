@@ -34,6 +34,10 @@ OptionParser.new do |opts|
     options[:url] = u || ""
   end
 
+  opts.on("-d", "--depth DEPTH", "Curl depth") do |d|
+    options[:depth] = d.to_i if not d.nil?
+  end
+
    opts.on("-w", "--write [FILENAME]", "Écrit les résultats dans un fichier.") do |w|
     options[:fileName] = w || "Sarbotte Quality.txt"
   end
@@ -52,11 +56,12 @@ elsif options[:file]
   filesProperties.push SQT.sarbotteFile(options[:file])
 # Si une url est donnée en option
 elsif options[:url]
-  filesProperties.push SQT.sarbotteCurl(options[:url])
+  filesProperties.push SQT.sarbotteCurl(options[:url], options[:depth])
 end
 
 # Si on a pu calculer le sqi d'un ou plusieurs fichiers
 unless filesProperties.empty?
+  filesProperties.flatten!
   filesProperties.sort_by! { |a| a[:sqi] }
   SQT.sarbottePrint(filesProperties, options)
   SQT.sarbotteWrite(filesProperties, options) if options[:fileName]

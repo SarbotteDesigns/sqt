@@ -35,6 +35,31 @@ module SQT
       (1 - jsAndCss.to_f/total.to_f) * 100
     end
 
+    # Curl with depth
+    def self.sarbotteCurlWithDepth(url, depth, result)
+      http = Curl.get(url)
+      file = http.body_str
+      xmlFile = Nokogiri::HTML(file)
+      if depth > 0
+        xmlFile.search('//a').each do |foundLink|
+          if foundLink['href'] =~ /^\//
+            toVisit = url + foundLink['href']
+          else
+            toVisit = foundLink['href']
+          end
+          if !(toVisit =~ /^http:\/\//).nil? && !result.any? {|sqr| sqr[:uri] == toVisit || sqr[:uri] == toVisit + '/' || sqr[:uri] + '/' == toVisit }
+            d = sarbotteCurlWithDepth(toVisit, depth - 1, result)
+            result = d if !d.nil?
+          end
+        end
+      end
+      if !(result.any? {|sqr| sqr[:uri] == url || sqr[:uri] == url + '/' || sqr[:uri] + '/' == url })
+        puts url
+        result.push Sqt.buildResult(url, file)
+      end
+    end
+
+
   end
 
   def self.sarbottePath(path, extension)
@@ -50,16 +75,21 @@ module SQT
     Sqt.buildResult("", string)
   end
 
-  def self.sarbotteCurl(url)
+  def self.sarbotteCurl(url, depth)
     require 'curb'
-    http = Curl.get(url)
-    file = http.body_str
-    Sqt.buildResult(url, file)
+    result = []
+    if depth.nil?
+      http = Curl.get(url)
+      file = http.body_str
+      result = Sqt.buildResult(url, file)
+    else
+      result = Sqt.sarbotteCurlWithDepth(url, depth, [])
+    end
+    return result
   end
 
    # Affiche en console les résultats
   def self.sarbottePrint(filesProperties, options)
-    system("cls")
     puts "\nSarbotte Quality Tool\n".colorize( :cyan )
     if options[:path] then
       puts "Chemin : " + options[:path] + "\n\n"

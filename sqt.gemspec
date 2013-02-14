@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Nicolas Barbotte"]
   s.email       = 'n.barbotte@gmail.com'
   s.files       = ["lib/sqt.rb"]
-  s.homepage    = 'https://github.com/SarbotteDesigns/sqt'
+  s.homepage    = 'http://www.sarbotte-designs.com/sqt'
 
   s.add_dependency('nokogiri', '~> 1.5.6')
   s.add_dependency('colorize', '~> 0.5.8')

@@ -47,18 +47,16 @@ module SQT
           else
             toVisit = foundLink['href']
           end
-          if !(toVisit =~ /^http:\/\//).nil? && !result.any? {|sqr| sqr[:uri] == toVisit || sqr[:uri] == toVisit + '/' || sqr[:uri] + '/' == toVisit }
+          if !(toVisit =~ /^http(s)?:\/\//).nil? && !result.any? {|sqr| sqr[:uri] == toVisit || sqr[:uri] == toVisit + '/' || sqr[:uri] + '/' == toVisit }
             d = sarbotteCurlWithDepth(toVisit, depth - 1, result)
             result = d if !d.nil?
           end
         end
       end
       if !(result.any? {|sqr| sqr[:uri] == url || sqr[:uri] == url + '/' || sqr[:uri] + '/' == url })
-        puts url
         result.push Sqt.buildResult(url, file)
       end
     end
-
 
   end
 

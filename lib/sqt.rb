@@ -10,6 +10,7 @@ module SQT
   require 'nokogiri'
 
   require 'colorize'
+  require 'uri'
 
   class Sqt
 
@@ -37,25 +38,41 @@ module SQT
 
     # Curl with depth
     def self.sarbotteCurlWithDepth(url, depth, result)
+      urlUrl = URI(url)
       http = Curl.get(url)
       file = http.body_str
       xmlFile = Nokogiri::HTML(file)
+      allowedScheme = ['http', 'https']
+      if !(result.any? {|sqr| URI(sqr[:uri]).path.gsub(/\/$/, '') == urlUrl.path.gsub(/\/$/, '') })
+        result.push Sqt.buildResult(url, file)
+      end
       if depth > 0
         xmlFile.search('//a').each do |foundLink|
-          if foundLink['href'] =~ /^\//
-            toVisit = url + foundLink['href']
-          else
-            toVisit = foundLink['href']
-          end
-          if !(toVisit =~ /^http(s)?:\/\//).nil? && !result.any? {|sqr| sqr[:uri] == toVisit || sqr[:uri] == toVisit + '/' || sqr[:uri] + '/' == toVisit }
-            d = sarbotteCurlWithDepth(toVisit, depth - 1, result)
-            result = d if !d.nil?
+          begin
+            if foundLink['href'] =~ /^\//
+              toVisit = url.gsub(/\/$/, '') + foundLink['href']
+            else
+              toVisit = foundLink['href']
+            end
+            puts toVisit
+            if !(toVisit =~ /^\s*$/)
+              toVisitUrl = URI(toVisit)
+              result.any? do |sqr| 
+                URI(sqr[:uri]).path.gsub(/\/$/, '') == toVisitUrl.path.gsub(/\/$/, '')
+              end
+              if urlUrl.host == toVisitUrl.host && allowedScheme.include?(toVisitUrl.scheme) && !result.any? { |sqr| URI(sqr[:uri]).path.gsub(/\/$/, '') == toVisitUrl.path.gsub(/\/$/, '') }
+                d = sarbotteCurlWithDepth(toVisit, depth - 1, result)
+                result = d if !d.nil?
+              end
+            end
+          rescue
+            puts "exception"
           end
         end
       end
-      if !(result.any? {|sqr| sqr[:uri] == url || sqr[:uri] == url + '/' || sqr[:uri] + '/' == url })
-        result.push Sqt.buildResult(url, file)
-      end
+
+      result
+      
     end
 
   end

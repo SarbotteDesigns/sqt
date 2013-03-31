@@ -40,6 +40,7 @@ module SQT
     def self.sarbotteCurlWithDepth(url, depth, result)
       urlUrl = URI(url)
       http = Curl.get(url)
+      http.max_redirects = -1
       file = http.body_str
       xmlFile = Nokogiri::HTML(file)
       allowedScheme = ['http', 'https']
@@ -57,7 +58,7 @@ module SQT
             puts toVisit
             if !(toVisit =~ /^\s*$/)
               toVisitUrl = URI(toVisit)
-              result.any? do |sqr| 
+              result.any? do |sqr|
                 URI(sqr[:uri]).path.gsub(/\/$/, '') == toVisitUrl.path.gsub(/\/$/, '')
               end
               if urlUrl.host == toVisitUrl.host && allowedScheme.include?(toVisitUrl.scheme) && !result.any? { |sqr| URI(sqr[:uri]).path.gsub(/\/$/, '') == toVisitUrl.path.gsub(/\/$/, '') }
@@ -72,7 +73,7 @@ module SQT
       end
 
       result
-      
+
     end
 
   end
@@ -95,6 +96,7 @@ module SQT
     result = []
     if depth.nil?
       http = Curl.get(url)
+      http.max_redirects = -1
       file = http.body_str
       result = Sqt.buildResult(url, file)
     else
